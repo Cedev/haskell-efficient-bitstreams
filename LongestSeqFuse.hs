@@ -54,6 +54,18 @@ bits :: ListS Word8 -> ListS Bool
 bits l = ListS (\c z -> build l (\z w -> z `c` testBit w 0 `c` testBit w 1 `c` testBit w 2 `c` testBit w 3 `c` testBit w 4 `c` testBit w 5 `c` testBit w 6 `c` testBit w 7) z)
 
 
+{-# INLINE scanlStep #-} 
+scanlStep :: (b -> a -> b) -> (c -> b -> c) -> (b, c) -> a -> (b, c)
+scanlStep f c = \(y, z) x -> (y `f` x, z `c` y)
+
+{-# INLINE uncurryScanl #-} 
+uncurryScanl :: (c -> b -> c) -> (b, c) -> c
+uncurryScanl f (b, c) = f c b
+
+{-# INLINE scanl' #-} 
+scanl' :: (b -> a -> b) -> b -> ListS a -> ListS b
+scanl' f y l = ListS (\c z -> uncurryScanl c (build l (scanlStep f c) (y, z)))
+
 data LongestRun = LongestRun !Bool !Int !Int
 
 {-# INLINE extendRun #-}
