@@ -66,6 +66,10 @@ uncurryScanl f (b, c) = f c b
 scanl' :: (b -> a -> b) -> b -> ListS a -> ListS b
 scanl' f y l = ListS (\c z -> uncurryScanl c (build l (scanlStep f c) (y, z)))
 
+{-# INLINE filter' #-}
+filter' :: (a -> Bool) -> ListS a -> ListS a
+filter' f l = ListS (\c z -> build l (\acc x -> if f x then acc `c` x else acc) z)
+
 data LongestRun = LongestRun !Bool !Int !Int
 
 {-# INLINE extendRun #-}
