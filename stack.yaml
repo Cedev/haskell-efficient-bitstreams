@@ -41,7 +41,8 @@ packages:
 # (e.g., acme-missiles-0.3)
 extra-deps: 
   - streaming-utils-0.1.4.7
-
+  - git: https://github.com/Cedev/foldboth.git
+    commit: 3273e3a1b61699bea068eba73d2648e326bd4867
 allow-newer: true
 
 # Override default flag values for local packages and extra-deps

@@ -76,3 +76,14 @@ executable longest-seq-fuse
                       , word8
     ghc-options: -fforce-recomp -optc "-funroll-loops" -fasm -threaded -optlc-mcpu=native -funbox-strict-fields
     ghc-prof-options: -fprof-auto
+    
+executable longest-seq-fused
+    hs-source-dirs:      .
+    main-is:             LongestSeqFused.hs
+    default-language:    Haskell2010
+    build-depends:       base >= 4.7 && < 5
+                      , bytestring
+                      , word8
+                      , foldboth
+    ghc-options: -fforce-recomp -optc "-funroll-loops" -fasm -threaded -optlc-mcpu=native -funbox-strict-fields
+    ghc-prof-options: -fprof-auto
